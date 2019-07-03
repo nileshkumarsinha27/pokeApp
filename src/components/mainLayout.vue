@@ -1,18 +1,21 @@
 <template>
-  <main class="main-container">
-    <aside id="nav">
-      <ul>
-        <li
-          v-for="(item, index) in regions"
-          v-bind:key="index"
-          v-on:click="clickHandle(item)"
-          v-bind:class="classDisplay(item.name)"
-        >{{ item.name }}</li>
-      </ul>
-    </aside>
-    <section class="container">
-      <DataGrid />
-    </section>
+  <main>
+    <article class="main-container">
+      <aside id="nav">
+        <ul>
+          <li
+            v-for="(item, index) in regions"
+            v-bind:key="index"
+            v-on:click="clickHandle(item)"
+            v-bind:class="classDisplay(item.name)"
+          >{{ item.name }}</li>
+        </ul>
+      </aside>
+      <section class="container">
+        <SearchComponent />
+        <DataGrid />
+      </section>
+    </article>
   </main>
 </template>
 <style lang="scss" scoped>
@@ -50,17 +53,29 @@
   left: 20%;
   background: #f1f4f8;
 }
+header {
+  width: 100%;
+  background: #3a4b5d;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  color: #fff;
+  padding: 9px 0;
+  text-align: center;
+  font-size: 24px;
+}
 </style>
 <script>
 import axios from "axios";
 import DataGrid from "@/components/dataGrid.vue";
+import SearchComponent from "@/components/searchComponent.vue";
 import API from "@/api-config/api";
 import Store from "@/store.js";
+import CONSTANTS from "@/constants.js";
 import { mapGetters } from "vuex";
 export default {
   name: "mainLayout",
   components: {
-    DataGrid
+    DataGrid,
+    SearchComponent
   },
   mounted: function() {
     axios
@@ -98,6 +113,11 @@ export default {
     regions: "regions",
     regionSelected: "regionSelected",
     regionUrl: "regionUrl"
-  })
+  }),
+  data: function() {
+    return {
+      headingText: CONSTANTS.HEADING
+    };
+  }
 };
 </script>

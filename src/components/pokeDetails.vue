@@ -1,6 +1,9 @@
 <template>
   <div>
-    <header class="heading" @click="goHome()">{{ name }}</header>
+    <header class="heading">
+      <img :src="backArr" @click="goHome()" />
+      <span>{{ name }}</span>
+    </header>
     <div class="grid-class">
       <PokeStats :details="details" />
       <PokeDescription :name="name" :description="description" :details="details" />
@@ -9,6 +12,7 @@
 </template>
 <script>
 import PokeStats from "@/components/pokeStats";
+import backArr from "@/assets/prev_arrow.svg";
 import PokeDescription from "@/components/pokeDescription";
 import Router from "@/router.js";
 export default {
@@ -22,6 +26,11 @@ export default {
     goHome: function() {
       Router.push("/");
     }
+  },
+  data: function() {
+    return {
+      backArr: backArr
+    };
   }
 };
 </script>
@@ -36,9 +45,14 @@ export default {
   margin: 0 0 20px;
   font-size: 24px;
   text-transform: capitalize;
-  cursor: pointer;
   position: fixed;
   width: 100%;
+  span {
+    padding: 0 0 0 10px;
+  }
+  img {
+    cursor: pointer;
+  }
 }
 .grid-class {
   padding: 100px 0 0;

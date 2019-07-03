@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid-container">
     <ul class="list" v-if="data.length > 0">
       <li
         v-for="item in data"
@@ -51,9 +51,12 @@ export default {
     cursor: pointer;
     text-align: center;
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
       color: #000;
     }
   }
+}
+.grid-container {
+  padding: 0 70px 0 140px;
 }
 </style>
