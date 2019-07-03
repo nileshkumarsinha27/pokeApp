@@ -5,7 +5,9 @@
         v-for="item in data"
         v-bind:key="item.entry_number"
         v-on:click="clickHandle(item.pokemon_species.url, item.entry_number)"
-      >{{ item.pokemon_species.name }}</li>
+      >
+        {{ item.pokemon_species.name }}
+      </li>
     </ul>
     <div v-else>
       <Loader />

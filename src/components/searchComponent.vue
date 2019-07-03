@@ -46,4 +46,3 @@ img {
   top: 2px;
 }
 </style>
-

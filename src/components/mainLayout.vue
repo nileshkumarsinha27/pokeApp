@@ -8,7 +8,9 @@
             v-bind:key="index"
             v-on:click="clickHandle(item)"
             v-bind:class="classDisplay(item.name)"
-          >{{ item.name }}</li>
+          >
+            {{ item.name }}
+          </li>
         </ul>
       </aside>
       <section class="container">

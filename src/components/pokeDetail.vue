@@ -1,6 +1,10 @@
 <template>
   <div v-if="Object.keys(details).length > 0">
-    <PokeDetails :details="details" :name="name" :description="pokeDescription" />
+    <PokeDetails
+      :details="details"
+      :name="name"
+      :description="pokeDescription"
+    />
   </div>
   <div v-else>
     <Loader />
