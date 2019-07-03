@@ -26,7 +26,8 @@ export default new Vuex.Store({
     regions: [],
     regionUrl: CONSTANTS.DEFAULT_API,
     regionSelected: CONSTANTS.DEFAULT_REGION,
-    refData: []
+    refData: [],
+    evolutionData: []
   },
   getters: {
     data: state => state.data,
@@ -47,7 +48,8 @@ export default new Vuex.Store({
     pokeDetailData: state => state.pokeDetailData,
     regions: state => state.regions,
     regionUrl: state => state.regionUrl,
-    regionSelected: state => state.regionSelected
+    regionSelected: state => state.regionSelected,
+    evolutionData: state => state.evolutionData
   },
   mutations: {
     setPokeData: function(state, payload) {
@@ -72,6 +74,7 @@ export default new Vuex.Store({
     },
     clearDetailsState: function(state) {
       state.pokeDetailData = Object.assign({});
+      state.evolutionData = [];
     },
     searchMutation: function(state, payload) {
       state.data = state.refData;
@@ -81,6 +84,9 @@ export default new Vuex.Store({
     },
     resetSearchMutation: function(state) {
       state.data = state.refData;
+    },
+    setEvolutionDataMutation: function(state, payload) {
+      state.evolutionData = payload.chain.evolves_to;
     }
   },
   actions: {
@@ -110,6 +116,9 @@ export default new Vuex.Store({
     },
     resetSearch({ commit }) {
       commit("resetSearchMutation");
+    },
+    setEvolutionData: function({ commit }, payload) {
+      commit("setEvolutionDataMutation", payload);
     }
   }
 });

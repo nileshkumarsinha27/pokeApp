@@ -1,10 +1,6 @@
 <template>
   <div v-if="Object.keys(details).length > 0">
-    <PokeDetails
-      :details="details"
-      :name="name"
-      :description="pokeDescription"
-    />
+    <PokeDetails :details="details" :name="name" :description="pokeDescription" />
   </div>
   <div v-else>
     <Loader />
@@ -17,10 +13,11 @@ import Store from "@/store.js";
 import { mapGetters } from "vuex";
 import Loader from "@/components/loader";
 import PokeDetails from "@/components/pokeDetails.vue";
+import { setTimeout } from "timers";
 export default {
   name: "pokeDetail",
   mounted: function() {
-    this.getPokeDetail();
+    setTimeout(this.getPokeDetail, 500);
   },
   methods: {
     getPokeDetail: function() {

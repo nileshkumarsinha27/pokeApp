@@ -2,39 +2,32 @@
   <div class="description-container">
     <Description :title="nameTag" :data="name" />
     <Description :title="hatchTag" :data="getHatchCount()" :isSteps="isSteps" />
-    <Description
-      :title="shapeTag"
-      :data="details.shape"
-      :keyRender="nameKey"
-      :isObject="isObject"
-    />
+    <Description :title="shapeTag" :data="details.shape" :keyRender="nameKey" :isObject="isObject" />
     <Description
       :title="habitatTag"
       :data="details.habitat"
       :keyRender="nameKey"
       :isObject="isObject"
     />
+    <Description :title="colorTag" :data="details.color" :keyRender="nameKey" :isObject="isObject" />
     <Description
-      :title="colorTag"
-      :data="details.color"
+      :title="EvolutionTag"
+      :data="item.species"
       :keyRender="nameKey"
+      v-for="(item,index) in evolutionData"
+      :key="index"
       :isObject="isObject"
     />
-    <Description
-      :title="descriptionTag"
-      :data="description"
-      :keyRender="flavourKey"
-    />
-    <Description
-      :title="generaTag"
-      :data="details.genera"
-      :keyRender="generaKey"
-    />
+    <Description :title="descriptionTag" :data="description" :keyRender="flavourKey" />
+    <Description :title="generaTag" :data="details.genera" :keyRender="generaKey" />
+    <Description :title="eggGroupTag" :data="details.egg_groups" :keyRender="nameKey" />
   </div>
 </template>
 
 <script>
 import Description from "@/components/description";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "PokeDescription",
   props: ["details", "description", "name"],
@@ -53,13 +46,31 @@ export default {
     generaKey: "genus",
     hatchTag: "Steps taken for hatching:",
     shapeTag: "Shape:",
-    isSteps: true
+    isSteps: true,
+    eggGroupTag: "Egg Group:",
+    EvolutionTag: "Evolution Chain:"
   }),
   methods: {
     getHatchCount: function() {
       return 255 * (this.details.hatch_counter + 1);
+    },
+    getEvolutionChain: function() {
+      axios
+        .get(this.details.evolution_chain.url)
+        .then(resp => {
+          this.$store.dispatch("setEvolutionData", resp.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
-  }
+  },
+  created: function() {
+    this.getEvolutionChain();
+  },
+  computed: mapGetters({
+    evolutionData: "evolutionData"
+  })
 };
 </script>
 <style lang="scss">
