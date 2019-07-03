@@ -6,7 +6,11 @@
     </header>
     <div class="grid-class">
       <PokeStats :details="details" />
-      <PokeDescription :name="name" :description="description" :details="details" />
+      <PokeDescription
+        :name="name"
+        :description="description"
+        :details="details"
+      />
     </div>
   </div>
 </template>

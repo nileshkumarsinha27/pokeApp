@@ -2,25 +2,47 @@
   <div class="description-container">
     <Description :title="nameTag" :data="name" />
     <Description :title="hatchTag" :data="getHatchCount()" :isSteps="isSteps" />
-    <Description :title="shapeTag" :data="details.shape" :keyRender="nameKey" :isObject="isObject" />
+    <Description
+      :title="shapeTag"
+      :data="details.shape"
+      :keyRender="nameKey"
+      :isObject="isObject"
+    />
     <Description
       :title="habitatTag"
       :data="details.habitat"
       :keyRender="nameKey"
       :isObject="isObject"
     />
-    <Description :title="colorTag" :data="details.color" :keyRender="nameKey" :isObject="isObject" />
+    <Description
+      :title="colorTag"
+      :data="details.color"
+      :keyRender="nameKey"
+      :isObject="isObject"
+    />
     <Description
       :title="EvolutionTag"
       :data="item.species"
       :keyRender="nameKey"
-      v-for="(item,index) in evolutionData"
+      v-for="(item, index) in evolutionData"
       :key="index"
       :isObject="isObject"
     />
-    <Description :title="descriptionTag" :data="description" :keyRender="flavourKey" />
-    <Description :title="generaTag" :data="details.genera" :keyRender="generaKey" />
-    <Description :title="eggGroupTag" :data="details.egg_groups" :keyRender="nameKey" />
+    <Description
+      :title="descriptionTag"
+      :data="description"
+      :keyRender="flavourKey"
+    />
+    <Description
+      :title="generaTag"
+      :data="details.genera"
+      :keyRender="generaKey"
+    />
+    <Description
+      :title="eggGroupTag"
+      :data="details.egg_groups"
+      :keyRender="nameKey"
+    />
   </div>
 </template>
 
