@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container">
-    <ul class="list" v-if="data.length > 0">
+    <ul class="list" v-if="data.length > 0 && !isLoaded">
       <li
         v-for="item in data"
         v-bind:key="item.entry_number"
@@ -9,8 +9,11 @@
         {{ item.pokemon_species.name }}
       </li>
     </ul>
-    <div v-else>
+    <div v-else-if="isLoaded">
       <Loader />
+    </div>
+    <div v-else>
+      <NoDataFound />
     </div>
   </div>
 </template>
@@ -18,6 +21,8 @@
 import Store from "@/store.js";
 import Router from "@/router.js";
 import Loader from "@/components/loader";
+import NoDataFound from "@/components/noDataFound";
+
 import { mapGetters } from "vuex";
 export default {
   name: "dataGrid",
@@ -32,10 +37,12 @@ export default {
   },
   computed: mapGetters({
     data: "data",
-    regionUrl: "regionUrl"
+    regionUrl: "regionUrl",
+    isLoaded: "isLoaded"
   }),
   components: {
-    Loader
+    Loader,
+    NoDataFound
   }
 };
 </script>

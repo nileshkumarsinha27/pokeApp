@@ -1,13 +1,6 @@
 <template>
-  <div v-if="Object.keys(details).length > 0">
-    <PokeDetails
-      :details="details"
-      :name="name"
-      :description="pokeDescription"
-    />
-  </div>
-  <div v-else>
-    <Loader />
+  <div>
+    <PokeDetails :details="details" :name="name" :description="pokeDescription" />
   </div>
 </template>
 
@@ -21,7 +14,7 @@ import { setTimeout } from "timers";
 export default {
   name: "pokeDetail",
   mounted: function() {
-    setTimeout(this.getPokeDetail, 500);
+    this.getPokeDetail();
   },
   methods: {
     getPokeDetail: function() {
@@ -31,9 +24,12 @@ export default {
       } else if (localStorage.getItem("pokeUrl")) {
         url = localStorage.getItem("pokeUrl");
       }
+      const headers = {
+        "Access-Control-Allow-Origin": "*"
+      };
       if (url) {
         axios
-          .get(url)
+          .get(url, headers)
           .then(resp => {
             Store.dispatch("setPokeDetailsData", resp.data);
           })

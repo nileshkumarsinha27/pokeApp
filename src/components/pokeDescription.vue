@@ -1,25 +1,15 @@
 <template>
-  <div class="description-container">
+  <div class="description-container" v-if="Object.keys(details).length>0">
     <Description :title="nameTag" :data="name" />
     <Description :title="hatchTag" :data="getHatchCount()" :isSteps="isSteps" />
-    <Description
-      :title="shapeTag"
-      :data="details.shape"
-      :keyRender="nameKey"
-      :isObject="isObject"
-    />
+    <Description :title="shapeTag" :data="details.shape" :keyRender="nameKey" :isObject="isObject" />
     <Description
       :title="habitatTag"
       :data="details.habitat"
       :keyRender="nameKey"
       :isObject="isObject"
     />
-    <Description
-      :title="colorTag"
-      :data="details.color"
-      :keyRender="nameKey"
-      :isObject="isObject"
-    />
+    <Description :title="colorTag" :data="details.color" :keyRender="nameKey" :isObject="isObject" />
     <Description
       :title="EvolutionTag"
       :data="item.species"
@@ -28,21 +18,16 @@
       :key="index"
       :isObject="isObject"
     />
-    <Description
-      :title="descriptionTag"
-      :data="description"
-      :keyRender="flavourKey"
-    />
-    <Description
-      :title="generaTag"
-      :data="details.genera"
-      :keyRender="generaKey"
-    />
-    <Description
-      :title="eggGroupTag"
-      :data="details.egg_groups"
-      :keyRender="nameKey"
-    />
+    <Description :title="descriptionTag" :data="description" :keyRender="flavourKey" />
+    <Description :title="generaTag" :data="details.genera" :keyRender="generaKey" />
+    <Description :title="eggGroupTag" :data="details.egg_groups" :keyRender="nameKey" />
+  </div>
+  <div v-else class="description-container">
+    <skeleton-loading>
+      <row :gutter="{top: '10px', bottom: '10px'}" v-for="i in descriptionCount" :key="i">
+        <square-skeleton :boxProperties="boxProperties"></square-skeleton>
+      </row>
+    </skeleton-loading>
   </div>
 </template>
 
@@ -70,7 +55,14 @@ export default {
     shapeTag: "Shape:",
     isSteps: true,
     eggGroupTag: "Egg Group:",
-    EvolutionTag: "Evolution Chain:"
+    EvolutionTag: "Evolution Chain:",
+    descriptionCount: 9,
+    boxProperties: {
+      bottom: "15px",
+      width: "100%",
+      height: "15px",
+      borderRadius: "5px"
+    }
   }),
   methods: {
     getHatchCount: function() {

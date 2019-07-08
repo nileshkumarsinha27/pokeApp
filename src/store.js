@@ -27,7 +27,8 @@ export default new Vuex.Store({
     regionUrl: CONSTANTS.DEFAULT_API,
     regionSelected: CONSTANTS.DEFAULT_REGION,
     refData: [],
-    evolutionData: []
+    evolutionData: [],
+    hasDataLoaded: false
   },
   getters: {
     data: state => state.data,
@@ -49,12 +50,14 @@ export default new Vuex.Store({
     regions: state => state.regions,
     regionUrl: state => state.regionUrl,
     regionSelected: state => state.regionSelected,
-    evolutionData: state => state.evolutionData
+    evolutionData: state => state.evolutionData,
+    isLoaded: state => state.hasDataLoaded
   },
   mutations: {
     setPokeData: function(state, payload) {
       state.data = payload;
       state.refData = payload;
+      state.isLoaded = true;
     },
     setPokeDetails: function(state, payload) {
       state.pokeDetail = Object.assign({}, payload);

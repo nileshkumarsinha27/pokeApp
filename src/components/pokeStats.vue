@@ -1,5 +1,5 @@
 <template>
-  <div class="stats-container">
+  <div class="stats-container" v-if="Object.keys(details).length>0">
     <StatsDetail
       :name="happiness"
       :data="mapRange(details.base_happiness)"
@@ -11,6 +11,13 @@
       :value="details.capture_rate"
     />
   </div>
+  <div v-else class="stats-container">
+    <skeleton-loading>
+      <row :gutter="{top: '10px', bottom: '10px'}" v-for="i in descriptionCount" :key="i">
+        <square-skeleton :boxProperties="boxProperties"></square-skeleton>
+      </row>
+    </skeleton-loading>
+  </div>
 </template>
 <script>
 import StatsDetail from "@/components/statsDetail.vue";
@@ -21,7 +28,13 @@ export default {
   data: function() {
     return {
       happiness: "Happiness",
-      captureRate: "Capture Rate"
+      captureRate: "Capture Rate",
+      descriptionCount: 2,
+      boxProperties: {
+        bottom: "15px",
+        width: "100%",
+        height: "15px"
+      }
     };
   },
   methods: {
