@@ -23,23 +23,21 @@
     <Description :title="eggGroupTag" :data="details.egg_groups" :keyRender="nameKey" />
   </div>
   <div v-else class="description-container">
-    <skeleton-loading>
-      <row :gutter="{top: '10px', bottom: '10px'}" v-for="i in descriptionCount" :key="i">
-        <square-skeleton :boxProperties="boxProperties"></square-skeleton>
-      </row>
-    </skeleton-loading>
+    <Loader />
   </div>
 </template>
 
 <script>
 import Description from "@/components/description";
+import Loader from "@/components/loader.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   name: "PokeDescription",
   props: ["details", "description", "name"],
   components: {
-    Description
+    Description,
+    Loader
   },
   data: () => ({
     nameTag: "Name:",

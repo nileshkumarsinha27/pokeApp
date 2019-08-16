@@ -12,15 +12,12 @@
     />
   </div>
   <div v-else class="stats-container">
-    <skeleton-loading>
-      <row :gutter="{top: '10px', bottom: '10px'}" v-for="i in descriptionCount" :key="i">
-        <square-skeleton :boxProperties="boxProperties"></square-skeleton>
-      </row>
-    </skeleton-loading>
+    <Loader />
   </div>
 </template>
 <script>
 import StatsDetail from "@/components/statsDetail.vue";
+import Loader from "@/components/loader.vue";
 import CONSTANTS from "@/constants";
 export default {
   name: "PokeStats",
@@ -41,7 +38,8 @@ export default {
     mapRange: rate => Math.ceil((rate / CONSTANTS.maxVal) * 100)
   },
   components: {
-    StatsDetail
+    StatsDetail,
+    Loader
   }
 };
 </script>
